@@ -54,7 +54,7 @@ jobs:
 
     - name: Run tests
       run: |
-        python -m pytest tests/ --cov=./ --cov-report=xml -v
+        python -m pytest tests/ -v
 
     - name: Build and test Docker image
       run: |
@@ -64,13 +64,3 @@ jobs:
         curl --fail http://localhost:8501/_stcore/health || exit 1
         docker stop test-container
         docker rm test-container
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: true
-        verbose: true

@@ -1,7 +1,6 @@
 # Commodity Charter Pro
 
 [![Build and Test](https://github.com/norandom/commodity-charter/actions/workflows/build.yml/badge.svg)](https://github.com/norandom/commodity-charter/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/norandom/commodity-charter/branch/main/graph/badge.svg)](https://codecov.io/gh/norandom/commodity-charter)
 
 A comprehensive financial analytics dashboard for commodity market analysis with advanced COT (Commitments of Traders) insights.
 
