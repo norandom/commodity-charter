@@ -32,14 +32,29 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov flake8
 
+    - name: Create test data
+      run: |
+        mkdir -p data
+        echo "Commodity,Bullish_Min,Bullish_Max,Bearish_Min,Bearish_Max
+        CL=F,30,40,60,70
+        NG=F,35,45,65,75
+        GC=F,25,35,65,75
+        SI=F,30,40,60,70
+        HG=F,35,45,65,75
+        ZC=F,30,40,60,70
+        ZS=F,35,45,65,75
+        ZW=F,30,40,60,70" > data/cot_signals.csv
+
     - name: Lint with flake8
       run: |
+        # Stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run tests
       run: |
-        pytest --cov=./ --cov-report=xml
+        python -m pytest tests/ --cov=./ --cov-report=xml -v
 
     - name: Build and test Docker image
       run: |
@@ -53,5 +68,6 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         file: ./coverage.xml
         fail_ci_if_error: true
